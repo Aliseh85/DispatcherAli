@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "210377786688",
+    "project_id": "dispatcher-ali",
+    "storage_bucket": "dispatcher-ali.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210377786688:android:b8dc1e957ffe4c662166a5",
+        "android_client_info": {
+          "package_name": "com.dispatcherali"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210377786688-i2lthhi0huiq71poerq9t2pjfid74pu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxsGeIuOMbP5_E_pED_-gQmKift-C0gcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210377786688-i2lthhi0huiq71poerq9t2pjfid74pu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
