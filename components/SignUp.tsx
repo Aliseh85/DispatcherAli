@@ -5,78 +5,134 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableOpacity,Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 const styles = StyleSheet.create({
-  father: {
+  Upperpart: {
     width: '100%',
     height: '100%',
-  },
-  upperPart: {
-    width: '100%',
-    height: '45%',
     backgroundColor: '#262146',
   },
-  lowerPart: {
+  Lowerpart: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    padding: 40,
-    marginVertical: 24,
-    position: 'absolute',
     width: '100%',
     height: '100%',
-    top: 250,
+    top: 81,
     backgroundColor: '#F8F8FF',
     borderRadius: 0,
   },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 16,
+  login: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontweight: '700',
+    fontSize:24,
+    lineHeight:22,
+    color:'#5A5A89',
+    width:93,
+    height:22,
+    marginLeft:20,
+    marginTop:40,
   },
-  inputLabel: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
+  textinputback:{
+    display:'flex',
+    flexDirection:'row',
+    alignItems:'center',
+    paddingTop:0,
+    paddingRight:12,
+    paddingLeft:16,
+    paddingBottom:0,
+    gap:10,
+    width:335,
+    height:44,
+    backgroundColor:'white',
+    borderRadius:4,
+    marginLeft:20,
+    marginRight:20,
+    marginTop:24,
+
   },
   input: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    fontSize: 16,
+    fontFamily:'Roboto',
+    fontStyle:'normal',
+    alignItems:'center',
+    color:'white',
   },
-  buttonContainer: {
-    backgroundColor: 'grey',
-    padding: 12,
-    borderRadius: 4,
-    width: '100%',
-    height: 50,
-    marginBottom: 10,
-    marginTop: 16,
-    alignItems: 'center',
+  signupButtun:
+  {
+  
+    display:'flex',
+    flexDirection:'row',
+    backgroundColor:"#BDBDBD",
+    marginTop:28.75,
+    marginLeft:20,
+    marginRight:20,
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius:10,
+    width:335,
+    height:36,
   },
-  buttonContainer2: {
-    backgroundColor: 'blue',
-    padding: 12,
-    borderRadius: 4,
-    width: '100%',
-    height: 50,
-    marginTop: 16,
-    alignItems: 'center',
+  loginbutton: {
+    display:'flex',
+  flexDirection:'row',
+  backgroundColor:"#6CA4E1",
+  marginTop:98.25,
+  marginLeft:20,
+  marginRight:20,
+  alignItems:'center',
+  justifyContent:'center',
+  borderRadius:10,
+  width:335,
+  height:36,
   },
   buttonText: {
     color: 'black',
-    fontWeight: 'bold',
-    textAlign: 'center',
     fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
-  buttonText2: {
-    color: 'white',
-    fontSize: 18,
-  },
+  passwordBackground:
+{
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingTop:0,
+  paddingRight:12,
+  paddingBottom:0,
+  paddingLeft:16,
+
+  gap: 10,
+  width: 335,
+  height: 44,
+  backgroundColor: 'white',
+  borderRadius:4,
+  marginLeft:20,
+  marginRight:20,
+  marginTop:24,
+},
+reEnterPasswordBackground:{
+
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop:0,
+    paddingRight:12,
+    paddingBottom:0,
+    paddingLeft:16,
+  
+    gap: 10,
+    width: 335,
+    height: 44,
+    backgroundColor: 'white',
+    borderRadius:4,
+    marginLeft:20,
+    marginRight:20,
+    marginTop:24,
+}
+,
+
 });
 const SignUp = () => {
   const navigation = useNavigation();
@@ -108,44 +164,45 @@ const SignUp = () => {
     };
   
     return (
-      <View style={styles.father}>
-        <View style={styles.upperPart} />
-        <View style={styles.lowerPart}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder="password"
-              style={styles.input}
-              autoCapitalize='none'
-              value={email}
-              onChangeText={setEmail}
+      <View style={styles.Upperpart}>    
+      <Image source={require('../images/Picture1.png')} style={{alignSelf:'center', margin:30}} />
+      <View style={styles.Lowerpart}>
+          <Text style={styles.login}>SignUp</Text>
+          <View style={styles.textinputback}>
+          <TextInput
+           style={styles.input}
+            placeholder="your email" 
+            autoCapitalize='none' 
+            value={email} onChangeText={setEmail} 
             />
+
           </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="password"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Re-enter Password"
-              secureTextEntry
-              value={rePassword}
-              onChangeText={setRePassword}
-            />
-          </View>
-          <TouchableOpacity style={styles.buttonContainer2} onPress={SignUp}>
-          <Text style={styles.buttonText2}>Signup</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate("SignIn")}>
-          <Text style={styles.buttonText}>SignIn</Text>
-        </TouchableOpacity>
+        <View style={styles.passwordBackground}>
+          <TextInput
+            style={styles.input}
+            placeholder="password"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+          />
         </View>
+        <View style={styles.reEnterPasswordBackground}>
+          <TextInput
+            style={styles.input}
+            placeholder="re-enter password"
+            secureTextEntry
+            value={password}
+            onChangeText={setRePassword}
+          />
+        </View>
+        <TouchableOpacity style={styles.loginbutton} onPress={signUp}>
+          <Text style={styles.buttonText}>SignUp</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.signupButtun} onPress={() => navigation.navigate('SignIn')}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
       </View>
+    </View>
     );
   };
   

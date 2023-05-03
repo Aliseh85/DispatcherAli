@@ -5,83 +5,98 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableOpacity,Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 ///////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const styles = StyleSheet.create({
-  Father: {
-    width: '100%',
-    height: '100%',
-  },
   Upperpart: {
     width: '100%',
-    height: '45%',
-    left: 0,
-    top: 0,
+    height: '100%',
     backgroundColor: '#262146',
   },
   Lowerpart: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    padding: 40,
-    marginVertical: 24,
-    position: 'absolute',
     width: '100%',
     height: '100%',
-    top: 250,
+    top: 81,
     backgroundColor: '#F8F8FF',
     borderRadius: 0,
   },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 16,
+  login: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontweight: '700',
+    fontSize:24,
+    lineHeight:22,
+    color:'#5A5A89',
+    width:93,
+    height:22,
+    marginLeft:20,
+    marginTop:40,
   },
-  inputLabel: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
+  textinputback:{
+    display:'flex',
+    flexDirection:'row',
+    alignItems:'center',
+    paddingTop:0,
+    paddingRight:12,
+    paddingLeft:16,
+    paddingBottom:0,
+    gap:10,
+    width:335,
+    height:44,
+    backgroundColor:'white',
+    borderRadius:4,
+    marginLeft:20,
+    marginRight:20,
+    marginTop:24,
+
   },
   input: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    fontSize: 16,
+    fontFamily:'Roboto',
+    fontStyle:'normal',
+    alignItems:'center',
+    color:'white',
   },
-  buttonContainer: {
-    backgroundColor: 'grey',
-    padding: 12,
-    borderRadius: 4,
-    width: '100%',
-    height: 50,
-    marginBottom: 10,
-    marginTop: 16,
-    alignItems: 'center',
+  signupButtun:
+  {
+  
+    display:'flex',
+    flexDirection:'row',
+    backgroundColor:"#BDBDBD",
+    marginTop:28.75,
+    marginLeft:20,
+    marginRight:20,
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius:10,
+    width:335,
+    height:36,
   },
-  buttonContainer2: {
-    backgroundColor: 'blue',
-    padding: 12,
-    borderRadius: 4,
-    width: '100%',
-    height: 50,
-    marginTop: 16,
-    alignItems: 'center',
+  loginbutton: {
+    display:'flex',
+  flexDirection:'row',
+  backgroundColor:"#6CA4E1",
+  marginTop:98.25,
+  marginLeft:20,
+  marginRight:20,
+  alignItems:'center',
+  justifyContent:'center',
+  borderRadius:10,
+  width:335,
+  height:36,
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  buttonText2: {
     color: 'black',
-    fontWeight: 'bold',
-    textAlign: 'center',
     fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
+
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -103,14 +118,20 @@ const SignIn = () => {
         });
     };
   return (
-    <View style={styles.Father}>
-      <View style={styles.Upperpart} />
+    <View style={styles.Upperpart}>    
+      <Image source={require('../images/Picture1.png')} style={{alignSelf:'center', margin:30}} />
       <View style={styles.Lowerpart}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>login</Text>
-          <TextInput style={styles.input} placeholder="your email" autoCapitalize='none' value={email} onChangeText={setEmail} />
-        </View>
-        <View style={styles.inputContainer}>
+          <Text style={styles.login}>login</Text>
+          <View style={styles.textinputback}>
+          <TextInput
+           style={styles.input}
+            placeholder="your email" 
+            autoCapitalize='none' 
+            value={email} onChangeText={setEmail} 
+            />
+
+          </View>
+        <View style={styles.textinputback}>
           <TextInput
             style={styles.input}
             placeholder="password"
@@ -119,10 +140,10 @@ const SignIn = () => {
             onChangeText={setPassword}
           />
         </View>
-        <TouchableOpacity style={styles.buttonContainer2} onPress={signIn}>
-          <Text style={styles.buttonText2}>login</Text>
+        <TouchableOpacity style={styles.loginbutton} onPress={signIn}>
+          <Text style={styles.buttonText}>login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('SignUp')}>
+        <TouchableOpacity style={styles.signupButtun} onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.buttonText}>Signup</Text>
         </TouchableOpacity>
       </View>
