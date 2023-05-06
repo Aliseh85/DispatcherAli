@@ -11,15 +11,12 @@ const AppNavigator = () => {
       <Stack.Screen
         name="SignIn"
         component={SignIn}
-        options={{ title: 'Sign in' }}
       />
       <Stack.Screen
         name="SignUp"
-        component={SignUp}
-        options={{ title: 'Sign up' }}
-      />
+        component={SignUp}/>
     </Stack.Navigator>
   );
 };
 
-export default AppNavigator;
+export default {AppNavigator};
