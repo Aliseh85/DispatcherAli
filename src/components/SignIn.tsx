@@ -110,6 +110,7 @@ const SignIn = () => {
         .signInWithEmailAndPassword('aliseh32@gmail.com', 'lareen1852000')
         .then(() => {
           console.log('Usercreated & signed in!');
+          navigation.navigate('HomePage');
         })
         .catch(error => {
           if (error.code === 'auth/invalid-email')

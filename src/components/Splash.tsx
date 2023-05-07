@@ -8,25 +8,30 @@ import {
   Image,
 } from 'react-native';
 
-const Favorite=()=>{
+const Splash1=()=>{
   const navigation=useNavigation();
   useLayoutEffect(
     ()=>{
       navigation.setOptions(
         {
-          headerTitle:'Favorite',
+          headerTitle:'Splash',
           headerShown:false,
         })
     }
   )
   return (
-    <Pressable>
+    <Pressable onPress={
+        ()=>navigation.navigate('SignIn')
+        } style={styles.container}>
     <SafeAreaView style={styles.container}>
    
-    <Image source={require('../images/star.png')}
+    <Image source={require('../images/logo1.png')}
      style={{alignSelf:'center',width:126.91,height:128,marginTop:61}}/>
-     <Text style={{top:440,fontWeight:700,alignSelf:'center'
-    ,color:'white',fontSize:32}}>Welcome to the Favorite page</Text>
+
+     <Text style={
+        styles.s1}
+    >Dispatcher</Text>
+
     </SafeAreaView>
 
     </Pressable>
@@ -41,8 +46,16 @@ const styles = StyleSheet.create({
     width:'100%',
     
   },
+  s1:{
+        top:440,
+        fontWeight:700,
+        alignSelf:'center'
+      ,color:'white',
+      fontSize:32,
+      
+  }
 
   
 });
 
-export default Favorite;
+export default Splash;
