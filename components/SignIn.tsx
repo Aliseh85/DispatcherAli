@@ -1,5 +1,10 @@
-import { useDispatch } from 'react-redux';
-import { setUser } from '../features/AuthSlice';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect, useState } from 'react';
 import {
@@ -11,50 +16,18 @@ import {
   Pressable,
   Image,
   Alert,
-
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
 import { authService } from '../firebase/AuthService';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useSelector } from 'react-redux';
-import Sign1 from '../components/SignUp';
-import Splash1 from '../components/Splash';
-import { RootState } from '../store/store';
-const Stack = createNativeStackNavigator();
-
+import { useSelector, useDispatch } from 'react-redux'
+import { login, update } from '../store/emailSlice'
 
 const Sign=()=>{
-  const user = useSelector((state: RootState) => state.authslice.user);
-  const isLoading = useSelector((state: RootState) => state.authslice.loading);
+  const isLogin = useSelector(state => state.email.isLogin);
+  const email = useSelector(state => state.email.email);
 
-  // If loading, show a loading screen
-  if (isLoading) {
-    return (
-      <SafeAreaView style={styles.backGround1}>
-        <Text>Loading...</Text>
-      </SafeAreaView>
-    );
-  }
-
-  // If user is not logged in, show the sign-in screen
-  if (!user) {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name={'Splash'} component={Splash1} />
-          <Stack.Screen name={'SignIn'} component={Sign} />
-          <Stack.Screen name={'SignUp'} component={Sign1} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-
+  const dispatch = useDispatch()
   const navigation=useNavigation();
-  const[username,setUsername]=useState('')
   const[password,setPassword]=useState('')
-  const dispatch = useDispatch();
-
 
   useLayoutEffect(
     ()=>{
@@ -73,8 +46,8 @@ const Sign=()=>{
      <View style={styles.background}>
         <Text style={styles.logIn}>Login </Text>
         <View style={styles.textInputBackground}>
-            <TextInput style={styles.textInput} placeholder='your email' value={username}
-             onChangeText={text=>setUsername(text) }/>
+            <TextInput style={styles.textInput} placeholder='your email' value={email}
+             onChangeText={text=>dispatch(update(text))}/>
         </View>
         <View style={styles.passwordBackground}>
             <TextInput style={styles.textInput} placeholder='Password'
@@ -85,30 +58,32 @@ const Sign=()=>{
         </View>
         <Image source={require('../images/Line2.png')} style={{position:'absolute',marginLeft:20,marginRight:20,width:335,marginTop:247}}/>
 
-            <Pressable
-        style={styles.loginButtun}
-        onPress={async () => {
-          try {
-            await authService.login(username, password);
-            dispatch(setUser({ email: username }));
-            setUsername('');
-            setPassword('');
+        <Pressable style={styles.loginButtun} onPress={()=>
+          {
+            try{
+            authService.login(email,password);
             navigation.navigate('HomePage');
-          } catch (e: any) {
-            Alert.alert('Error', e.message, [
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              { text: 'OK', onPress: () => console.log('OK Pressed') },
-            ]);
+            dispatch(login());
           }
-        }}
-      >
-        <Text style={{ color: 'white' }}>LOGIN</Text>
-        <Image source={require('../images/Stroke.png')} style={{ marginLeft: 3, width: 16, height: 12 }} />
-      </Pressable>
+            catch(e:any){
+              {
+                Alert.alert('Error', e.message, [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ]);
+              }
+
+            }
+            ;
+          }}>
+          <Text style={{color:'white'}}>LOGIN</Text>
+          <Image source={require('../images/Stroke.png')} style={{marginLeft:3,width:16,height:12}}/>
+
+        </Pressable>
         <Pressable style={styles.signupButtun} onPress={
           ()=>navigation.navigate('SignUp')
           }>
@@ -127,12 +102,7 @@ const styles = StyleSheet.create({
     width:'100%',
     
   },
-  backGround1:
-  {
-    backgroundColor:"#262146",
-    height:'100%',
-    width:'100%',
-  },
+  
   background:
   {
     display: 'flex',

@@ -1,3 +1,10 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+
 import { useNavigation } from '@react-navigation/native';
 import React , {useState, useLayoutEffect }from 'react';
 import {
@@ -11,11 +18,15 @@ import {
     TouchableOpacity,Alert,
 } from 'react-native';
 import { authService } from '../firebase/AuthService';
+import { useSelector, useDispatch } from 'react-redux'
 
+import { update } from '../store/emailSlice'
 
 const Sign1=()=>{
+  const email = useSelector(state => state.email.email);
+
+  const dispatch = useDispatch()
   const navigation=useNavigation();
-  const[email,setEmail]=useState('')
   const[password,setPassword]=useState('')
   const[scurePassword,setScurePassword]=useState(true)
 
@@ -39,7 +50,7 @@ const Sign1=()=>{
         <Text style={styles.signup}>Signup</Text>
         <View style={styles.textInputBackground}>
             <TextInput style={styles.textInput} placeholder='your email' value={email}
-             onChangeText={text=>setEmail(text) }/>
+             onChangeText={text=>dispatch(update(text)) }/>
         </View>
         <View style={styles.passwordBackground}>
             <TextInput style={styles.textInput} placeholder='Password' secureTextEntry={scurePassword}  value={password}

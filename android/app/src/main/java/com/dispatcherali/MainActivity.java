@@ -1,5 +1,6 @@
 package com.dispatcherali;
-
+import android.os.Bundle; // add this
+import org.devio.rn.splashscreen.SplashScreen; // add this
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
@@ -21,6 +22,12 @@ public class MainActivity extends ReactActivity {
    * DefaultReactActivityDelegate} which allows you to easily enable Fabric and Concurrent React
    * (aka React 18) with two boolean flags.
    */
+  @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       SplashScreen.show(this);  // add this
+       super.onCreate(savedInstanceState);
+   }
+
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
     return new DefaultReactActivityDelegate(
