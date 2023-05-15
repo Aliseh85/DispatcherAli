@@ -15,7 +15,7 @@ import {
   TextInput,
   Pressable,
   Image,
-  Alert,
+  Alert,TouchableOpacity,
 } from 'react-native';
 import { authService } from '../firebase/AuthService';
 import { useSelector, useDispatch } from 'react-redux'
@@ -28,7 +28,7 @@ const Sign=()=>{
   const dispatch = useDispatch()
   const navigation=useNavigation();
   const[password,setPassword]=useState('')
-
+  const[scurePassword,setScurePassword]=useState(true)
   useLayoutEffect(
     ()=>{
       navigation.setOptions(
@@ -51,10 +51,16 @@ const Sign=()=>{
         </View>
         <View style={styles.passwordBackground}>
             <TextInput style={styles.textInput} placeholder='Password'
-            value={password} secureTextEntry={true}
+            value={password} secureTextEntry={scurePassword}
             onChangeText={text=>setPassword(text)} />
-            <Image source={require('../images/Vector.png')} style={{position:'absolute',marginLeft:295,width:30,height:19}}/>
-            <Image source={require('../images/Rectangle609.png')} style={{position:'absolute',marginLeft:295,width:30,height:19}}/>
+            <TouchableOpacity onPress={()=>{setScurePassword(!scurePassword);}}>
+
+            <Image source={require('../images/Vector.png')} style={{position:'absolute',marginLeft:190,width:30,height:19,marginTop:-10,}}/>
+            {scurePassword ? (
+            <Image source={require('../images/Rectangle609.png')} style={{position:'absolute',marginLeft:190,width:30,marginTop:-10,
+            height:19}}/>):null}
+          </TouchableOpacity>
+
         </View>
         <Image source={require('../images/Line2.png')} style={{position:'absolute',marginLeft:20,marginRight:20,width:335,marginTop:247}}/>
 

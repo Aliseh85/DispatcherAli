@@ -55,18 +55,28 @@ const Sign1=()=>{
         <View style={styles.passwordBackground}>
             <TextInput style={styles.textInput} placeholder='Password' secureTextEntry={scurePassword}  value={password}
              onChangeText={text=>setPassword(text) }/>
-             <TouchableOpacity onPress={()=>setScurePassword(!scurePassword)}>
+             <TouchableOpacity onPress={()=>{setScurePassword(!scurePassword);}}>
             <Image source={require('../images/Vector.png')} style={{position:'absolute',marginLeft:195,width:30,height:19}}/>
-            <Image source={require('../images/Rectangle609.png')} style={{position:'absolute',marginLeft:195,width:30,height:19} }/>
+            {scurePassword?(
+            <Image source={require('../images/Rectangle609.png')} style={{position:'absolute',marginLeft:195
+            ,width:30,height:19} }/>):null}
             </TouchableOpacity>
         </View>
         <View style={styles.reEnterPasswordBackground}>
-            <TextInput style={styles.textInput} placeholder='Re-Enter Password' secureTextEntry={true}  value={reEnterPassword}
+            <TextInput style={styles.textInput} placeholder='Re-Enter Password' secureTextEntry={scurePassword}  value={reEnterPassword}
              onChangeText={text=>setReEnterPassword(text) }/>
-            <Image source={require('../images/Vector.png')} style={{position:'absolute',marginLeft:295,width:30,height:19}}/>
-            <Image source={require('../images/Rectangle609.png')} style={{position:'absolute',marginLeft:295,width:30,height:19}}/>
+          <TouchableOpacity onPress={()=>{setScurePassword(!scurePassword);}}>
+
+            <Image source={require('../images/Vector.png')} style={{position:'absolute',marginLeft:120,width:30,height:19}}/>
+            {scurePassword?(   
+
+            <Image source={require('../images/Rectangle609.png')} style={{position:'absolute',marginLeft:120,width:30,height:19}}/>
+            ):null}
+          </TouchableOpacity>
         </View>
+
         <Image source={require('../images/Line2.png')} style={{position:'absolute',marginLeft:20,marginRight:20,width:335,marginTop:320}}/>
+
 
         <Pressable style={styles.signupButtun} 
           onPress={async ()=>

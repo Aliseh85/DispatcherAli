@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React ,{useEffect}from 'react';
 import type {PropsWithChildren} from 'react';
 import { enableScreens } from 'react-native-screens';
 import {
@@ -19,17 +19,28 @@ import Sign from './components/SignIn';
 import Sign1 from './components/SignUp';
 import Splash1 from './components/Splash';
 import Home from './components/HomePage';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux'
 import store from './store/store'
+import SplashScreen from "react-native-splash-screen";
 const Stack = createNativeStackNavigator();
 
 
 function App(){
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      border: "transparent",
+    }
+  }
+  useEffect(() => {
+    SplashScreen.hide(); //hides the splash screen on app load.
+  }, []);
   return (
 <Provider store={store}>
-  <NavigationContainer>
+  <NavigationContainer theme={theme}>
     <Stack.Navigator>
 
     {/* <Stack.Screen name={'Splash'} component={Splash1} /> */}
@@ -42,7 +53,6 @@ function App(){
   </Provider>
   );
 }
-
 const styles = StyleSheet.create({
   backGround:
   {
@@ -51,5 +61,4 @@ const styles = StyleSheet.create({
     width:'100%',
   },
 });
-
 export default App;
