@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.dispatcherahmad"
+    namespace "com.dispatcherali"
     defaultConfig {
-        applicationId "com.dispatcherahmad"
+        applicationId "com.dispatcherali"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
