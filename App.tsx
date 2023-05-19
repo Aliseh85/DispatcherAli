@@ -6,25 +6,23 @@
  */
 
 import React ,{useEffect}from 'react';
-import type {PropsWithChildren} from 'react';
-import { enableScreens } from 'react-native-screens';
 import {
-  SafeAreaView,
-  ScrollView,
+
   StyleSheet,
-  Text,
-  View,
 } from 'react-native';
 import Sign from './components/SignIn';
 import Sign1 from './components/SignUp';
-import Splash1 from './components/Splash';
+// import Onboarding from './components/Onboarding';
 import Home from './components/HomePage';
 import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux'
 import store from './store/store'
 import SplashScreen from "react-native-splash-screen";
-const Stack = createNativeStackNavigator();
+
+
+export type MainStackTypes={'Onboard':undefined,'SignIn':undefined,'SignUp':undefined,'HomePage':undefined};
+const Stack = createNativeStackNavigator<MainStackTypes>();
 
 
 function App(){
@@ -44,6 +42,8 @@ function App(){
     <Stack.Navigator>
 
     {/* <Stack.Screen name={'Splash'} component={Splash1} /> */}
+    {/* <Stack.Screen name={'Onboard'} component={Onboarding} /> */}
+
       <Stack.Screen name={'SignIn'} component={Sign} />
       <Stack.Screen name={'SignUp'} component={Sign1} />
       <Stack.Screen name={'HomePage'} component={Home} />
@@ -62,3 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 export default App;
+

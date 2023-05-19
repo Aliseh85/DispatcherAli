@@ -22,11 +22,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { login, update } from '../store/emailSlice'
 
 const Sign=()=>{
-  const isLogin = useSelector(state => state.email.isLogin);
-  const email = useSelector(state => state.email.email);
+  const email = useSelector((state:{email:any}) => state.email.email);
 
   const dispatch = useDispatch()
-  const navigation=useNavigation();
+  const navigation=useNavigation<any>();
   const[password,setPassword]=useState('')
   const[scurePassword,setScurePassword]=useState(true)
   useLayoutEffect(
@@ -67,13 +66,25 @@ const Sign=()=>{
         <Pressable style={styles.loginButtun} onPress={()=>
           {
             try{
-            authService.login(email,password);
-            navigation.navigate('HomePage');
-            dispatch(login());
+            const ret=authService.login(email,password);
+            ret.then( ()=>{ navigation.navigate('HomePage');
+            dispatch(login());}).catch(e => {
+              Alert.alert('Error', 'One or more files is un validated', [
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ])}
+              )
+            
+       
+         
           }
             catch(e:any){
               {
-                Alert.alert('Error', e.message, [
+                Alert.alert('Error','One or more files is un validated', [
                   {
                     text: 'Cancel',
                     onPress: () => console.log('Cancel Pressed'),

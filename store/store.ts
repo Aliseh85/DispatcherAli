@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-// import exampleSlice from 'redux-toolkit/slices;
+import thunk from 'redux-thunk';
 import emailReducer from './emailSlice'
 import newsSliceReducer from './newsSlice';
 
@@ -10,7 +9,7 @@ reducer: {
 email:emailReducer,
 news:newsSliceReducer,
 },
-
+middleware: [thunk],
 });
 
 export default store;

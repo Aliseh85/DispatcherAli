@@ -4,15 +4,15 @@ import {
   Text,
   View,
   Pressable,
-  Image,StyleSheet,TextInput,
+  Image,StyleSheet,TextInput,Dimensions
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 
 function Profile() {
-    const navigation=useNavigation();
+    const navigation=useNavigation<any>();
     const dispatch = useDispatch()
-    const email = useSelector(state => state.email.email);
-    const name = useSelector(state => state.email.name);
+    const email = useSelector((state:{email:any}) => state.email.email);
+    const name = useSelector((state:{email:any}) => state.email.name);
 
     useLayoutEffect(
       ()=>{

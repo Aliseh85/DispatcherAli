@@ -6,19 +6,13 @@ import {
   Pressable,
   Image,Alert,StyleSheet,TextInput,
 } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSelector, useDispatch } from 'react-redux'
-import { authService } from '../firebase/AuthService';
-import { logout } from '../store/emailSlice';
-import {getPosts} from '../store/newsSlice';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { editName } from '../store/emailSlice'
 
 function EditProf2() {
     const navigation=useNavigation();
     const dispatch = useDispatch()
-    const email = useSelector(state => state.email.email);
-    const name = useSelector(state => state.email.name);
     useLayoutEffect(
       ()=>{
         navigation.setOptions(
@@ -71,7 +65,6 @@ top:20,right:26,fontSize:12,fontWeight:700,color:'#5A5A89',backgroundColor:'#E5E
     width:343,
     height:32,
     marginLeft:119,
-    fontWeight:700,
     fontSize:16,
     color:'#262146',
     lineHeight:32,},

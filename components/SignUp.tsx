@@ -23,10 +23,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { update } from '../store/emailSlice'
 
 const Sign1=()=>{
-  const email = useSelector(state => state.email.email);
+  const email = useSelector((state:{email:any}) => state.email.email);
 
   const dispatch = useDispatch()
-  const navigation=useNavigation();
+  const navigation=useNavigation<any>();
   const[password,setPassword]=useState('')
   const[scurePassword,setScurePassword]=useState(true)
 
