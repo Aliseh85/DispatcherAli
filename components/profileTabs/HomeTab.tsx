@@ -1,72 +1,107 @@
+import React, { useEffect } from 'react';
+import { View, Image, StyleSheet, StatusBar, FlatList, Text, TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPosts, addToFavorites } from '../../store/newsSlice';
 
+const HomeScreen = () => {
+  const articles = useSelector((state) => state.news.articles);
+  const favorites = useSelector((state) => state.news.favorites);
+  const dispatch = useDispatch();
 
-import React, { useLayoutEffect ,useEffect} from 'react';
-import {
-  Text,
-  View,Image,StyleSheet,StatusBar,FlatList,ListRenderItemInfo,
+  useEffect(() => {
+    dispatch(getPosts());
+  }, []);
 
-} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux'
-import {getPosts} from '../../store/newsSlice';
-import { ThunkDispatch } from '@reduxjs/toolkit';
+  const isArticleSaved = (article) => {
+    return favorites.some((favArticle) => favArticle.title === article.title);
+  };
 
-type News={urlToImage:any,publishedAt:any,title:any,description:any}
-const HomeScreen=()=> {
-    const articles=useSelector((state:{news:any})=>state.news.articles);
-    const dispatch=useDispatch<ThunkDispatch<any,any,any>>();
-    useEffect(()=>{
-      dispatch(getPosts());
-    },[])
-    // const art=[{"source":{"id":null,"name":"CNBC"},"author":"Holly Ellyatt","title":"Putin's 'one-tank' military parade was an embarrassment for Russia, analysts say - CNBC","description":"Russia's scaled-down Victory Day military parade highlighted the country's depleted resources.","url":"https://www.cnbc.com/2023/05/10/putins-one-tank-military-parade-was-an-embarrassment-for-russia.html","urlToImage":"https://image.cnbcfm.com/api/v1/image/107238685-1683702861735-gettyimages-1253266131-RUS_Vicotry_Day_Parade_Takes_Place_In_Red_Square.jpeg?v=1683709838&w=1920&h=1080","publishedAt":"2023-05-10T09:10:38Z","content":"A Soviet T-34 tank, the only tank on display in Russia's Victory Day parade on May 9, 2023, rolls through Red Square.\r\nRussia's scaled-down Victory Day military parade showed not only Moscow's insecu… [+5841 chars]"}]
-   
-    const renderItem = ({ item }:ListRenderItemInfo<News>) => 
-    {
-      return (
-        <View style={{left:8,width:320}}>
-        <Image style={styles.tinyLogo}
-        source={{
-          uri: item.urlToImage,
-        }}
+  const renderItem = ({ item }) => (
+    <View style={styles.articleContainer}>
+      <Image style={styles.image} source={{ uri: item.urlToImage }} />
+      <Text style={styles.publishedAt}>{item.publishedAt}</Text>
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.description}>{item.description}</Text>
+      {!isArticleSaved(item) && (
+        <TouchableOpacity
+          style={styles.favoriteButton}
+          onPress={() => dispatch(addToFavorites(item))}
+        >
+          <Text style={styles.favoriteButtonText}>Add to Favorites</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Image source={require('../../images/logo1.png')} style={styles.logo} />
+      </View>
+      <FlatList
+        data={articles}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={styles.contentContainer}
       />
-      <Text style={{display:'flex',fontSize:14,color:'#5A5A89'}}>{item.publishedAt}</Text>
-      <Text style={{display:'flex',fontSize:24,color:'#14142B'}}>{item.title}</Text>
-      <Text style={{display:'flex',fontSize:14,color:'#5A5A89'}}>{item.description}</Text>
-      </View>
-        )}
-    
+    </View>
+  );
+};
 
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <View style={{width:'100%',height:55,backgroundColor:'#262146' }}>
-        <Image source={require('../../images/logo1.png')} style={{width:32,height:32,top:10,left:20,}}/>
-        </View>
-        <FlatList<News>
-           data={articles}
-           renderItem={renderItem}
-           keyExtractor={(item, index) => index.toString()}
-       />
-      </View>
-    );
-  }
-  export default HomeScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    height: 55,
+    backgroundColor: '#262146',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingLeft: 20,
+  },
+  logo: {
+    width: 32,
+    height: 32,
+  },
+  contentContainer: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  articleContainer: {
+    marginBottom: 20,
+  },
+  image: {
+    width: '100%',
+    height: 150,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  publishedAt: {
+    fontSize: 14,
+    color: '#5A5A89',
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 24,
+    color: '#14142B',
+    marginTop: 5,
+  },
+  description: {
+    fontSize: 14,
+    color: '#5A5A89',
+    marginTop: 5,
+  },
+  favoriteButton: {
+    backgroundColor: '#FFC107',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  favoriteButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingTop: StatusBar.currentHeight,
-    },
-    scrollView: {
-      backgroundColor: 'pink',
-      marginHorizontal: 20,
-    },
-    tinyLogo: {
-      width: 320,
-      height: 150,
-      borderTopLeftRadius:20,
-      borderTopRightRadius:20,
-    },
-    logo: {
-      width: 66,
-      height: 58,
-    },
-  });
+export default HomeScreen;

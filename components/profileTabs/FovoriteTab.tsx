@@ -1,20 +1,76 @@
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity,FlatList } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromFavorites } from '../../store/newsSlice';
 
-import React, { useLayoutEffect ,useEffect} from 'react';
-import {
-  Text,
-  View,
-  Image,
-} from 'react-native';
-const FavoriteScreen=()=> {
-    return (
-      <View style={{ flex: 1, }}>
-          <View style={{width:'100%',height:55,backgroundColor:'#262146' }}>
-        <Image source={require('../../images/logo1.png')} style={{width:32,height:32,top:10,left:20,}}/>
-        </View>
-        <Text style={{width:343,height:32,fontSize:24,color:'#262146',marginLeft:16,}}>Saved articles</Text>
-      </View>
-    );
-  }
+const FavoriteTab = () => {
+  const favorites = useSelector((state) => state.news.favorites);
+  const dispatch = useDispatch();
 
-  export default FavoriteScreen;
-  
+  const renderArticle = ({ item }) => (
+    <View style={styles.articleContainer}>
+      <Image style={styles.image} source={{ uri: item.urlToImage }} />
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.description}>{item.description}</Text>
+      <TouchableOpacity
+        style={styles.unsaveButton}
+        onPress={() => dispatch(removeFromFavorites(item))}
+      >
+        <Text style={styles.unsaveButtonText}>Unsave</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={favorites}
+        renderItem={renderArticle}
+        keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={styles.contentContainer}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  articleContainer: {
+    marginBottom: 20,
+  },
+  image: {
+    width: '100%',
+    height: 150,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  title: {
+    fontSize: 24,
+    color: '#14142B',
+    marginTop: 5,
+  },
+  description: {
+    fontSize: 14,
+    color: '#5A5A89',
+    marginTop: 5,
+  },
+  unsaveButton: {
+    backgroundColor: 'red',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  unsaveButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
+
+export default FavoriteTab;
