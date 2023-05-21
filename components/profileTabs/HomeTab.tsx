@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, StatusBar, FlatList, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { View, Image, StyleSheet, StatusBar, FlatList, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPosts, addToFavorites } from '../../store/newsSlice';
 
 const HomeScreen = () => {
   const articles = useSelector((state) => state.news.articles);
   const favorites = useSelector((state) => state.news.favorites);
+  const loading = useSelector((state) => state.news.loading);
+  const page = useSelector((state) => state.news.page);
+  const hasMore = useSelector((state) => state.news.hasMore);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,6 +18,12 @@ const HomeScreen = () => {
   const isArticleSaved = (article) => {
     return favorites.some((favArticle) => favArticle.title === article.title);
   };
+
+  const handleLoadMore = useCallback(() => {
+    if (!loading && hasMore) {
+      dispatch(getPosts());
+    }
+  }, [loading, hasMore, dispatch]);
 
   const renderItem = ({ item }) => (
     <View style={styles.articleContainer}>
@@ -33,6 +42,24 @@ const HomeScreen = () => {
     </View>
   );
 
+  const renderFooter = () => {
+    if (!hasMore) {
+      return (
+        <View style={styles.footerContainer}>
+          <Text style={styles.noMoreText}>No more articles to load.</Text>
+        </View>
+      );
+    } else if (loading) {
+      return (
+        <View style={styles.footerContainer}>
+          <ActivityIndicator size="small" color="#888" />
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -43,6 +70,9 @@ const HomeScreen = () => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.contentContainer}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );
@@ -101,6 +131,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  footerContainer: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  noMoreText: {
+    fontSize: 16,
+    color: '#888',
   },
 });
 
