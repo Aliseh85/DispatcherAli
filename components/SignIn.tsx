@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect, useState } from 'react';

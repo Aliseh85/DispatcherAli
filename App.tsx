@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import Sign from './components/SignIn';
 import Sign1 from './components/SignUp';
+import carousel from './components/carousel';
+
 // import Onboarding from './components/Onboarding';
 import Home from './components/HomePage';
 import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
@@ -46,6 +48,7 @@ function App(){
 
       <Stack.Screen name={'SignIn'} component={Sign} />
       <Stack.Screen name={'SignUp'} component={Sign1} />
+      <Stack.Screen name={'carousel'} component={carousel} />
       <Stack.Screen name={'HomePage'} component={Home} />
 
     </Stack.Navigator>
